@@ -1,0 +1,82 @@
+{
+  "name": "ot-tree",
+  "version": "1.0.0",
+  "description": "OT type for tree",
+  "author": "yiminghe@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yiminghe/ot-tree/issues"
+  },
+  "homepage": "https://github.com/yiminghe/ot-tree",
+  "devDependencies": {
+    "@babel/preset-typescript": "^7.9.0",
+    "@babel/preset-env": "^7.8.7",
+    "@pika/pack": "^0.5.0",
+    "@pika/types": "^0.6.0",
+    "babel-jest": "^24.8.0",
+    "coveralls": "^2.13.1",
+    "@types/jest": "26.x",
+    "jest": "26.x",
+    "lint-staged": "^7.2.0",
+    "np": "^5.0.3",
+    "@types/lodash": "4.x",
+    "lodash": "4.x",
+    "pika-plugin-build-web-babel": "^0.10.0",
+    "pika-plugin-ts-types": "0.1.x",
+    "pre-commit": "^1.2.2",
+    "prettier": "2.x",
+    "typescript": "4.x"
+  },
+  "lint-staged": {
+    "*.{tsx,js,jsx,ts}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "pre-commit": [
+    "lint-staged"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yiminghe/ot-tree.git"
+  },
+  "files": [
+    "dist/"
+  ],
+  "keywords": [
+    "ot",
+    "tree",
+    "sharejs"
+  ],
+  "@pika/pack": {
+    "pipeline": [
+      [
+        "pika-plugin-ts-types"
+      ],
+      [
+        "pika-plugin-build-web-babel",
+        {
+          "format": "cjs"
+        }
+      ],
+      [
+        "pika-plugin-build-web-babel"
+      ]
+    ]
+  },
+  "scripts": {
+    "lint-staged": "lint-staged",
+    "prettier": "prettier --write \"{src,__tests__}/**/*.{js,tsx,ts}\"",
+    "pub": "np --no-publish --no-release-draft && npm run build && npm publish pkg",
+    "build": "pika-pack build",
+    "test": "rm -rf pkg && jest",
+    "test:watch": "rm -rf pkg && jest --watch",
+    "coverage": "rm -rf pkg && jest --coverage && cat ./coverage/lcov.info | coveralls",
+    "coverage:gha": "rm -rf pkg && jest --coverage"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/*"
+    ]
+  }
+}
