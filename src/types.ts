@@ -1,5 +1,7 @@
 export type Path = number[];
 
+export type Side = "left" | "right";
+
 export type TreeNode = {
   data?: Record<string, any>;
   children?: TreeNode[];
@@ -25,7 +27,9 @@ export interface MoveNodeOperation {
   toPath: Path;
 }
 
-export type TreeOp =
+export type TreeOpComponent =
   | InsertNodeOperation
   | RemoveNodeOperation
   | MoveNodeOperation;
+
+export type TreeOp = TreeOpComponent[];
