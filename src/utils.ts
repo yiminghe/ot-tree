@@ -24,6 +24,18 @@ export function traverse(model: TreeNode, fn: (node: TreeNode) => boolean) {
   return ret;
 }
 
+export function transformOldToPathToNewToPath(fromPath: Path, toPath: Path) {
+  if (isSibling(toPath, fromPath)) {
+  } else {
+    // transform toPath relative to next treeData
+    toPath = transformPathWhenMove(toPath, fromPath, toPath);
+    if (last(toPath)) {
+      toPath = decrement(toPath);
+    }
+  }
+  return toPath;
+}
+
 export function getNodeAtPath(path: Path, tree: Tree): TreeNode | undefined {
   if (!path.length) {
     return;

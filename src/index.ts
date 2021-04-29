@@ -19,6 +19,7 @@ import {
   isSibling,
   increment,
   decrement,
+  transformOldToPathToNewToPath,
   invertPrevAndtoPath,
   getNodeAtPath,
 } from "./utils";
@@ -39,7 +40,9 @@ export const type = {
     } else if (op.type === "remove_node") {
       removeNodeAtPath(op.path, tree);
     } else if (op.type === "move_node") {
-      moveNode(op.fromPath, op.toPath, tree);
+      const { fromPath, toPath } = op;
+      const newToPath = transformOldToPathToNewToPath(fromPath, toPath);
+      moveNode(fromPath, newToPath, tree);
     }
     return tree;
   },
