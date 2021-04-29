@@ -51,7 +51,10 @@
   "@pika/pack": {
     "pipeline": [
       [
-        "pika-plugin-ts-types"
+        "pika-plugin-ts-types",
+        {
+          "tsconfig": "tsconfig.build.json"
+        }
       ],
       [
         "pika-plugin-build-web-babel",
