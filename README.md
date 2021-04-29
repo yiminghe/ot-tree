@@ -1,7 +1,8 @@
-# ot-tree
+# Tree OT Type
+
 The Tree OT type can be used to edit arbitrary Tree Structure.
 
-It follows https://github.com/ottypes/docs, can be used with sharedb.
+For documentation on the spec this type implements, see [ottypes/docs](https://github.com/ottypes/docs), so it can be used with [sharedb](https://github.com/share/sharedb).
 
 ## Usage
 
