@@ -7,28 +7,8 @@ import type {
   TreeOp,
 } from "./types";
 
-let uid = 1;
-
-export function uuid() {
-  return ++uid;
-}
-
 export function last<O = any>(args: O[]) {
   return args && args[args.length - 1];
-}
-
-export function traverse(model: TreeNode, fn: (node: TreeNode) => boolean) {
-  let ret = fn(model);
-  if (ret) {
-    return ret;
-  }
-  const { children } = model;
-  if (children) {
-    for (const c of children) {
-      traverse(c, fn);
-    }
-  }
-  return ret;
 }
 
 export function transformOldToPathToNewToPath(fromPath: Path, toPath: Path) {
@@ -57,27 +37,6 @@ export function getNodeAtPath(path: Path, tree: Tree): TreeNode | undefined {
     }
   }
   return parent;
-}
-
-export function getParentsAndSelfAtNodePath(
-  path: Path,
-  tree: Tree
-): TreeNode[] {
-  if (!path.length) {
-    return [];
-  }
-  let n = 0;
-  const ret: TreeNode[] = [];
-  let parent: TreeNode | undefined = { children: tree };
-  for (const i of path) {
-    n = i;
-    parent = parent.children && parent.children[n];
-    if (!parent) {
-      return ret;
-    }
-    ret.push(parent);
-  }
-  return ret;
 }
 
 export function removeNodeAtPath(path: Path, tree: TreeNode[]) {
