@@ -62,3 +62,16 @@ export function moveOp(from: Path, to: Path): TreeOp {
     },
   ];
 }
+
+export { internalType } from "./internal";
+
+export type {
+  Tree,
+  TreeOpComponent,
+  Path,
+  TreeNode,
+  Side,
+  InsertNodeOperation,
+  MoveNodeOperation,
+  RemoveNodeOperation,
+} from "./types";
