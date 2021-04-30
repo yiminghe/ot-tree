@@ -52,7 +52,10 @@ export function removeNodeAtPath(path: Path, tree: TreeNode[]) {
 
 export function addNodeAtPath(path: Path, newNode: TreeNode, tree: TreeNode[]) {
   const parent: TreeNode | undefined = getNodeAtPath(path.slice(0, -1), tree);
-  let children = parent?.children || tree;
+  let children: TreeNode[] = tree;
+  if (parent) {
+    children = parent.children = parent.children || [];
+  }
   const last = path[path.length - 1];
   children.splice(last, 0, newNode);
   return parent;
