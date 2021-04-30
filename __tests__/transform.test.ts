@@ -1,6 +1,6 @@
-import { type, insertOp, moveOp, removeOp } from "../src/";
-import { TreeOp } from "../src/types";
-import { pick } from "lodash";
+import { type, insertOp, moveOp, removeOp } from '../src/';
+import { TreeOp } from '../src/types';
+import { pick } from 'lodash';
 
 const { transform } = type;
 
@@ -8,11 +8,11 @@ function wrap(a: any) {
   return a;
 }
 
-const rightSide = "right";
-const leftSide = "left";
+const rightSide = 'right';
+const leftSide = 'left';
 
-describe("transform", () => {
-  it("insert vs insert works", () => {
+describe('transform', () => {
+  it('insert vs insert works', () => {
     expect(wrap(transform(insertOp([0, 0, 0]), insertOp([0, 1, 0]), rightSide)))
       .toMatchInlineSnapshot(`
       Array [
@@ -144,9 +144,9 @@ describe("transform", () => {
     `);
   });
 
-  it("remove vs remove works", () => {
+  it('remove vs remove works', () => {
     expect(
-      wrap(transform(removeOp([0, 1, 0]), removeOp([0, 1]), rightSide))
+      wrap(transform(removeOp([0, 1, 0]), removeOp([0, 1]), rightSide)),
     ).toMatchInlineSnapshot(`Array []`);
 
     expect(wrap(transform(removeOp([0, 1]), removeOp([0, 1, 0]), rightSide)))
@@ -164,11 +164,11 @@ describe("transform", () => {
     `);
 
     expect(
-      wrap(transform(removeOp([0, 1, 1]), removeOp([0, 1, 1]), rightSide))
+      wrap(transform(removeOp([0, 1, 1]), removeOp([0, 1, 1]), rightSide)),
     ).toMatchInlineSnapshot(`Array []`);
 
     expect(
-      wrap(transform(removeOp([0, 1, 1]), removeOp([0, 1, 1]), leftSide))
+      wrap(transform(removeOp([0, 1, 1]), removeOp([0, 1, 1]), leftSide)),
     ).toMatchInlineSnapshot(`Array []`);
 
     expect(wrap(transform(removeOp([0, 1, 0]), removeOp([0, 0]), rightSide)))
@@ -260,7 +260,7 @@ describe("transform", () => {
     `);
   });
 
-  it("move vs move works", () => {
+  it('move vs move works', () => {
     let op1 = moveOp([0, 1], [0, 3, 3]);
     let op2 = moveOp([0, 2], [0, 3, 4]);
 

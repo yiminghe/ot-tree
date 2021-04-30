@@ -1,6 +1,6 @@
 export type Path = number[];
 
-export type Side = "left" | "right";
+export type Side = 'left' | 'right';
 
 export type TreeNode = {
   data?: Record<string, any>;
@@ -10,19 +10,19 @@ export type TreeNode = {
 export type Tree = TreeNode[];
 
 export interface InsertNodeOperation {
-  type: "insert_node";
+  type: 'insert_node';
   path: Path;
   newNode: TreeNode;
 }
 
 export interface RemoveNodeOperation {
-  type: "remove_node";
+  type: 'remove_node';
   path: Path;
   removedNode?: TreeNode;
 }
 
 export interface MoveNodeOperation {
-  type: "move_node";
+  type: 'move_node';
   fromPath: Path;
   toPath: Path;
 }

@@ -1,9 +1,9 @@
-import { type, moveOp } from "../src/";
+import { type, moveOp } from '../src/';
 
 const { invert } = type;
 
-describe("invert", () => {
-  it("move works", () => {
+describe('invert', () => {
+  it('move works', () => {
     expect(invert(moveOp([0, 0], [0, 1, 0]))).toMatchInlineSnapshot(`
       Array [
         Object {

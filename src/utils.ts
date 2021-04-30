@@ -5,7 +5,7 @@ import type {
   Side,
   TreeOpComponent,
   TreeOp,
-} from "./types";
+} from './types';
 
 export function last<O = any>(args: O[]) {
   return args && args[args.length - 1];
@@ -247,7 +247,7 @@ function relation(path1: Path, path2: Path) {
 export function transformPathWhenInsert(
   path: Path,
   fromPath: Path,
-  adjustWhenConflict?: boolean
+  adjustWhenConflict?: boolean,
 ): Path {
   const { pEqual, pYounger, pAbove } = relation(fromPath, path);
   if ((pEqual && adjustWhenConflict) || pYounger || pAbove) {
@@ -259,7 +259,7 @@ export function transformPathWhenInsert(
 export function transformPathWhenRemove(
   path: Path,
   fromPath: Path,
-  adjustWhenConflict?: boolean
+  adjustWhenConflict?: boolean,
 ): Path | undefined {
   const { pEqual, pYounger, pAbove } = relation(fromPath, path);
   if (pYounger) {
@@ -274,7 +274,7 @@ export function transformPathWhenRemove(
 export function transformPathWhenMove(
   path: Path,
   fromPath: Path,
-  newPath: Path
+  newPath: Path,
 ): Path {
   // Stay
   if (isEqual(fromPath, newPath)) {
@@ -286,7 +286,7 @@ export function transformPathWhenMove(
   const { pAbove, pYounger, pEqual } = relation(fromPath, path);
   const { pYounger: npYounger, pAbove: npAbove, pEqual: npEqual } = relation(
     newPath,
-    path
+    path,
   );
 
   if (pAbove) {
@@ -356,8 +356,8 @@ export function transform(
   transformOne: (
     opComponent: TreeOpComponent,
     otherOpComponent: TreeOpComponent,
-    side: Side
-  ) => TreeOp
+    side: Side,
+  ) => TreeOp,
 ): [TreeOp, TreeOp] {
   if (!otherOp.length || !op.length) return [op, otherOp];
 
@@ -365,26 +365,26 @@ export function transform(
   const ops_01_0n = op.slice(1);
   const ops_00_10 = otherOp[0];
   const ops_10_n0 = otherOp.slice(1);
-  const invertSide = side === "right" ? "left" : "right";
+  const invertSide = side === 'right' ? 'left' : 'right';
   const ops_10_11 = transformOne(ops_00_01, ops_00_10, side);
   const ops_01_11 = transformOne(ops_00_10, ops_00_01, invertSide);
   const [ops_11_n1, ops_n0_n1] = transform(
     ops_10_n0,
     ops_10_11,
     invertSide,
-    transformOne
+    transformOne,
   );
   const [ops_0n_1n, ops_11_1n] = transform(
     ops_01_11,
     ops_01_0n,
     invertSide,
-    transformOne
+    transformOne,
   );
   const [ops_n1_nn, ops_1n_nn] = transform(
     ops_11_1n,
     ops_11_n1,
     side,
-    transformOne
+    transformOne,
   );
 
   return [

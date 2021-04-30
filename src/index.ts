@@ -1,13 +1,13 @@
-import type { Tree, TreeOp, Path, TreeNode, Side } from "./types";
-import { internalType } from "./internal";
+import type { Tree, TreeOp, Path, TreeNode, Side } from './types';
+import { internalType } from './internal';
 
-import * as treeUtils from "./utils";
+import * as treeUtils from './utils';
 
 export const utils = treeUtils;
 
 export const type = {
-  name: "tree",
-  url: "https://github.com/yiminghe/ot-tree",
+  name: 'tree',
+  url: 'https://github.com/yiminghe/ot-tree',
   create(tree: Tree) {
     return tree;
   },
@@ -19,7 +19,7 @@ export const type = {
   },
   makeInvertible(op: TreeOp, tree: Tree): TreeOp {
     return op.map((opComponent) =>
-      internalType.makeInvertible(opComponent, tree)
+      internalType.makeInvertible(opComponent, tree),
     );
   },
   invert(op: TreeOp) {
@@ -36,7 +36,7 @@ export const type = {
 export function insertOp(path: Path, newNode: TreeNode = {}): TreeOp {
   return [
     {
-      type: "insert_node",
+      type: 'insert_node',
       path,
       newNode,
     },
@@ -46,7 +46,7 @@ export function insertOp(path: Path, newNode: TreeNode = {}): TreeOp {
 export function removeOp(path: Path, removedNode?: TreeNode): TreeOp {
   return [
     {
-      type: "remove_node",
+      type: 'remove_node',
       path,
       removedNode,
     },
@@ -56,14 +56,14 @@ export function removeOp(path: Path, removedNode?: TreeNode): TreeOp {
 export function moveOp(from: Path, to: Path): TreeOp {
   return [
     {
-      type: "move_node",
+      type: 'move_node',
       fromPath: from,
       toPath: to,
     },
   ];
 }
 
-export { internalType } from "./internal";
+export { internalType } from './internal';
 
 export type {
   Tree,
@@ -74,4 +74,4 @@ export type {
   InsertNodeOperation,
   MoveNodeOperation,
   RemoveNodeOperation,
-} from "./types";
+} from './types';

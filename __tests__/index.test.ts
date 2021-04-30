@@ -1,10 +1,10 @@
-import { type, insertOp } from "../src/";
+import { type, insertOp } from '../src/';
 
-describe("usage", () => {
-  it("works", () => {
+describe('usage', () => {
+  it('works', () => {
     const ret = type.apply(
-      [{ children: [{ data: { name: "0" } }] }],
-      insertOp([0, 1], { data: { name: "new" } })
+      [{ children: [{ data: { name: '0' } }] }],
+      insertOp([0, 1], { data: { name: 'new' } }),
     );
 
     expect(ret).toMatchInlineSnapshot(`
@@ -27,10 +27,10 @@ describe("usage", () => {
     `);
   });
 
-  it("can create children", () => {
+  it('can create children', () => {
     const ret = type.apply(
-      [{ children: [{ data: { name: "0" } }] }],
-      insertOp([0, 0, 1], { data: { name: "new" } })
+      [{ children: [{ data: { name: '0' } }] }],
+      insertOp([0, 0, 1], { data: { name: 'new' } }),
     );
 
     expect(ret).toMatchInlineSnapshot(`

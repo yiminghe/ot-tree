@@ -1,4 +1,4 @@
-import { TreeOpComponent, Tree, Path, TreeOp } from "./types";
+import { TreeOpComponent, Tree, Path, TreeOp } from './types';
 import {
   addNodeAtPath,
   removeNodeAtPath,
@@ -14,15 +14,15 @@ import {
   transformOldToPathToNewToPath,
   invertPrevAndtoPath,
   getNodeAtPath,
-} from "./utils";
+} from './utils';
 
 export const internalType = {
   apply(tree: Tree, op: TreeOpComponent) {
-    if (op.type === "insert_node") {
+    if (op.type === 'insert_node') {
       addNodeAtPath(op.path, op.newNode, tree);
-    } else if (op.type === "remove_node") {
+    } else if (op.type === 'remove_node') {
       removeNodeAtPath(op.path, tree);
-    } else if (op.type === "move_node") {
+    } else if (op.type === 'move_node') {
       const { fromPath, toPath } = op;
       const newToPath = transformOldToPathToNewToPath(fromPath, toPath);
       moveNode(fromPath, newToPath, tree);
@@ -30,21 +30,21 @@ export const internalType = {
     return tree;
   },
   invert(op: TreeOpComponent): TreeOpComponent {
-    if (op.type === "insert_node") {
+    if (op.type === 'insert_node') {
       return {
-        type: "remove_node",
+        type: 'remove_node',
         path: op.path,
       };
-    } else if (op.type === "remove_node") {
+    } else if (op.type === 'remove_node') {
       return {
-        type: "insert_node",
+        type: 'insert_node',
         path: op.path,
         newNode: op.removedNode!,
       };
-    } else if (op.type === "move_node") {
+    } else if (op.type === 'move_node') {
       const { fromPath, toPath } = op;
       return {
-        type: "move_node",
+        type: 'move_node',
         ...invertPrevAndtoPath(fromPath, toPath),
       };
     }
@@ -53,13 +53,13 @@ export const internalType = {
   transform(
     op: TreeOpComponent,
     other: TreeOpComponent,
-    side: "left" | "right"
+    side: 'left' | 'right',
   ): TreeOp {
     let path: Path | undefined;
     // 表示 op 为 localOp
-    const adjustWhenConflict = side === "right";
-    if (op.type === "insert_node") {
-      if (other.type === "insert_node") {
+    const adjustWhenConflict = side === 'right';
+    if (op.type === 'insert_node') {
+      if (other.type === 'insert_node') {
         path = transformPathWhenInsert(op.path, other.path, adjustWhenConflict);
         return [
           {
@@ -69,7 +69,7 @@ export const internalType = {
         ];
       }
 
-      if (other.type === "remove_node") {
+      if (other.type === 'remove_node') {
         path = transformPathWhenRemove(op.path, other.path);
         if (!path) {
           // insert into deleted tree
@@ -83,7 +83,7 @@ export const internalType = {
         ];
       }
 
-      if (other.type === "move_node") {
+      if (other.type === 'move_node') {
         path = transformPathWhenMove(op.path, other.fromPath, other.toPath);
         return [
           {
@@ -92,8 +92,8 @@ export const internalType = {
           },
         ];
       }
-    } else if (op.type === "remove_node") {
-      if (other.type === "insert_node") {
+    } else if (op.type === 'remove_node') {
+      if (other.type === 'insert_node') {
         path = transformPathWhenInsert(op.path, other.path, true);
         return [
           {
@@ -103,7 +103,7 @@ export const internalType = {
         ];
       }
 
-      if (other.type === "remove_node") {
+      if (other.type === 'remove_node') {
         // remove same node
         if (isEqual(op.path, other.path)) {
           return [];
@@ -121,7 +121,7 @@ export const internalType = {
         ];
       }
 
-      if (other.type === "move_node") {
+      if (other.type === 'move_node') {
         path = transformPathWhenMove(op.path, other.fromPath, other.toPath);
         return [
           {
@@ -130,8 +130,8 @@ export const internalType = {
           },
         ];
       }
-    } else if (op.type === "move_node") {
-      if (other.type === "insert_node") {
+    } else if (op.type === 'move_node') {
+      if (other.type === 'insert_node') {
         return [
           {
             ...op,
@@ -141,12 +141,12 @@ export const internalType = {
         ];
       }
 
-      if (other.type === "remove_node") {
+      if (other.type === 'remove_node') {
         // first remove
         const fromPath = transformPathWhenRemove(
           op.fromPath,
           other.path,
-          adjustWhenConflict
+          adjustWhenConflict,
         );
         if (!fromPath) {
           return [];
@@ -165,7 +165,7 @@ export const internalType = {
         ];
       }
 
-      if (other.type === "move_node") {
+      if (other.type === 'move_node') {
         let a = op.fromPath;
         let d = op.toPath;
         const c = other.fromPath;
@@ -197,7 +197,7 @@ export const internalType = {
         let toPath = transformPathWhenMove(
           op.toPath,
           other.fromPath,
-          other.toPath
+          other.toPath,
         );
         if (isEqual(op.toPath, other.toPath)) {
           if (isSibling(other.toPath, other.fromPath)) {
@@ -216,7 +216,7 @@ export const internalType = {
             fromPath: transformPathWhenMove(
               op.fromPath,
               other.fromPath,
-              other.toPath
+              other.toPath,
             ),
             toPath,
           },
@@ -227,7 +227,7 @@ export const internalType = {
   },
 
   makeInvertible(op: TreeOpComponent, tree: Tree) {
-    if (op.type === "remove_node") {
+    if (op.type === 'remove_node') {
       return {
         ...op,
         removedNode: getNodeAtPath(op.path, tree),

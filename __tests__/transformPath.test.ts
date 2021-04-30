@@ -1,7 +1,7 @@
-import { transformPathWhenMove } from "../src/utils";
+import { transformPathWhenMove } from '../src/utils';
 
-describe("transformPath", () => {
-  it("transformPathWhenMove works", () => {
+describe('transformPath', () => {
+  it('transformPathWhenMove works', () => {
     expect(transformPathWhenMove([5], [1], [5])).toMatchInlineSnapshot(`
       Array [
         4,
