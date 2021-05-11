@@ -18,7 +18,22 @@ import {
 
 export const internalType = {
   apply(tree: Tree, op: TreeOpComponent) {
-    if (op.type === 'insert_node') {
+    if (op.type === 'edit_node') {
+      const node = getNodeAtPath(op.path, tree);
+      if (node) {
+        const { data } = op;
+        for (const key of Object.keys(data)) {
+          if (data[key] === null) {
+            if (node.data) {
+              delete node.data[key];
+            }
+          } else {
+            node.data = node.data || {};
+            node.data[key] = data[key];
+          }
+        }
+      }
+    } else if (op.type === 'insert_node') {
       addNodeAtPath(op.path, op.newNode, tree);
     } else if (op.type === 'remove_node') {
       removeNodeAtPath(op.path, tree);
@@ -47,6 +62,12 @@ export const internalType = {
         type: 'move_node',
         ...invertPrevAndtoPath(fromPath, toPath),
       };
+    } else if (op.type === 'edit_node') {
+      return {
+        ...op,
+        prevData: op.data,
+        data: op.prevData!,
+      };
     }
     return op;
   },
@@ -58,7 +79,41 @@ export const internalType = {
     let path: Path | undefined;
     // 表示 op 为 localOp
     const adjustWhenConflict = side === 'right';
-    if (op.type === 'insert_node') {
+    if (op.type === 'edit_node') {
+      if (other.type === 'insert_node') {
+        path = transformPathWhenInsert(op.path, other.path, true);
+        return [
+          {
+            ...op,
+            path,
+          },
+        ];
+      }
+
+      if (other.type === 'remove_node') {
+        path = transformPathWhenRemove(op.path, other.path, true);
+        if (!path) {
+          // edit deleted tree
+          return [];
+        }
+        return [
+          {
+            ...op,
+            path,
+          },
+        ];
+      }
+
+      if (other.type === 'move_node') {
+        path = transformPathWhenMove(op.path, other.fromPath, other.toPath);
+        return [
+          {
+            ...op,
+            path,
+          },
+        ];
+      }
+    } else if (op.type === 'insert_node') {
       if (other.type === 'insert_node') {
         path = transformPathWhenInsert(op.path, other.path, adjustWhenConflict);
         return [
@@ -232,6 +287,25 @@ export const internalType = {
         ...op,
         removedNode: getNodeAtPath(op.path, tree),
       };
+    } else if (op.type === 'edit_node') {
+      const { data } = op;
+      const prevData: any = {};
+      const node = getNodeAtPath(op.path, tree);
+      if (node) {
+        const nodeData = node.data || {};
+        for (const key of Object.keys(data)) {
+          if (key in nodeData) {
+            prevData[key] = nodeData[key];
+          } else {
+            prevData[key] = null;
+          }
+        }
+        return {
+          ...op,
+          prevData,
+        };
+      }
+      return op;
     }
     return op;
   },

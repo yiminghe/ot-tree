@@ -1,6 +1,5 @@
 import type { Tree, TreeOp, Path, TreeNode, Side } from './types';
 import { internalType } from './internal';
-
 import * as treeUtils from './utils';
 
 export const utils = treeUtils;
@@ -63,6 +62,16 @@ export function moveOp(from: Path, to: Path): TreeOp {
   ];
 }
 
+export function editOp(path: Path, data: any): TreeOp {
+  return [
+    {
+      type: 'edit_node',
+      path,
+      data,
+    },
+  ];
+}
+
 export { internalType } from './internal';
 
 export type {
@@ -71,6 +80,7 @@ export type {
   Path,
   TreeNode,
   Side,
+  EditNodeOperation,
   InsertNodeOperation,
   MoveNodeOperation,
   RemoveNodeOperation,

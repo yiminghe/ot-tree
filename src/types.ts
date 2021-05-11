@@ -27,7 +27,15 @@ export interface MoveNodeOperation {
   toPath: Path;
 }
 
+export interface EditNodeOperation {
+  type: 'edit_node';
+  path: Path;
+  data: Record<string, any>;
+  prevData?: Record<string, any>;
+}
+
 export type TreeOpComponent =
+  | EditNodeOperation
   | InsertNodeOperation
   | RemoveNodeOperation
   | MoveNodeOperation;
