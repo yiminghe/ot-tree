@@ -78,6 +78,7 @@
     "coverage:gha": "rm -rf pkg && jest --coverage"
   },
   "jest": {
+    "testRegex":"/__tests__/.*\\.(test|spec)\\.[jt]sx?$",
     "collectCoverageFrom": [
       "src/*"
     ]

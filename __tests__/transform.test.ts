@@ -1,262 +1,272 @@
 import { type, insertOp, moveOp, removeOp } from '../src/';
-import { TreeOp } from '../src/types';
-import { pick } from 'lodash';
+import { prettyJson } from './utils';
 
 const { transform } = type;
-
-function wrap(a: any) {
-  return a;
-}
 
 const rightSide = 'right';
 const leftSide = 'left';
 
 describe('transform', () => {
   it('insert vs insert works', () => {
-    expect(wrap(transform(insertOp([0, 0, 0]), insertOp([0, 1, 0]), rightSide)))
-      .toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "newNode": Object {},
-          "path": Array [
+    expect(
+      prettyJson(
+        transform(insertOp([0, 0, 0]), insertOp([0, 1, 0]), rightSide),
+      ),
+    ).toMatchInlineSnapshot(`
+      "[
+        {
+          'type': 'insert_node',
+          'path': [
             0,
             0,
-            0,
+            0
           ],
-          "type": "insert_node",
-        },
-      ]
+          'newNode': {}
+        }
+      ]"
     `);
 
-    expect(wrap(transform(insertOp([0, 1, 0]), insertOp([0, 0, 0]), rightSide)))
-      .toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "newNode": Object {},
-          "path": Array [
+    expect(
+      prettyJson(
+        transform(insertOp([0, 1, 0]), insertOp([0, 0, 0]), rightSide),
+      ),
+    ).toMatchInlineSnapshot(`
+      "[
+        {
+          'type': 'insert_node',
+          'path': [
             0,
             1,
-            0,
+            0
           ],
-          "type": "insert_node",
-        },
-      ]
+          'newNode': {}
+        }
+      ]"
     `);
 
-    expect(wrap(transform(insertOp([0, 0]), insertOp([0, 1]), rightSide)))
+    expect(prettyJson(transform(insertOp([0, 0]), insertOp([0, 1]), rightSide)))
       .toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "newNode": Object {},
-          "path": Array [
+      "[
+        {
+          'type': 'insert_node',
+          'path': [
             0,
-            0,
+            0
           ],
-          "type": "insert_node",
-        },
-      ]
+          'newNode': {}
+        }
+      ]"
     `);
 
-    expect(wrap(transform(insertOp([0, 1]), insertOp([0, 0]), rightSide)))
+    expect(prettyJson(transform(insertOp([0, 1]), insertOp([0, 0]), rightSide)))
       .toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "newNode": Object {},
-          "path": Array [
+      "[
+        {
+          'type': 'insert_node',
+          'path': [
+            0,
+            2
+          ],
+          'newNode': {}
+        }
+      ]"
+    `);
+
+    expect(prettyJson(transform(insertOp([0, 0]), insertOp([0, 0]), rightSide)))
+      .toMatchInlineSnapshot(`
+      "[
+        {
+          'type': 'insert_node',
+          'path': [
+            0,
+            1
+          ],
+          'newNode': {}
+        }
+      ]"
+    `);
+
+    expect(prettyJson(transform(insertOp([0, 0]), insertOp([0, 0]), leftSide)))
+      .toMatchInlineSnapshot(`
+      "[
+        {
+          'type': 'insert_node',
+          'path': [
+            0,
+            0
+          ],
+          'newNode': {}
+        }
+      ]"
+    `);
+
+    expect(
+      prettyJson(transform(insertOp([0, 0]), insertOp([0, 1, 0]), rightSide)),
+    ).toMatchInlineSnapshot(`
+      "[
+        {
+          'type': 'insert_node',
+          'path': [
+            0,
+            0
+          ],
+          'newNode': {}
+        }
+      ]"
+    `);
+
+    expect(
+      prettyJson(transform(insertOp([0, 1, 0]), insertOp([0, 0]), rightSide)),
+    ).toMatchInlineSnapshot(`
+      "[
+        {
+          'type': 'insert_node',
+          'path': [
             0,
             2,
+            0
           ],
-          "type": "insert_node",
-        },
-      ]
+          'newNode': {}
+        }
+      ]"
     `);
 
-    expect(wrap(transform(insertOp([0, 0]), insertOp([0, 0]), rightSide)))
-      .toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "newNode": Object {},
-          "path": Array [
-            0,
-            1,
-          ],
-          "type": "insert_node",
-        },
-      ]
-    `);
-
-    expect(wrap(transform(insertOp([0, 0]), insertOp([0, 0]), leftSide)))
-      .toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "newNode": Object {},
-          "path": Array [
-            0,
-            0,
-          ],
-          "type": "insert_node",
-        },
-      ]
-    `);
-
-    expect(wrap(transform(insertOp([0, 0]), insertOp([0, 1, 0]), rightSide)))
-      .toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "newNode": Object {},
-          "path": Array [
-            0,
-            0,
-          ],
-          "type": "insert_node",
-        },
-      ]
-    `);
-
-    expect(wrap(transform(insertOp([0, 1, 0]), insertOp([0, 0]), rightSide)))
-      .toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "newNode": Object {},
-          "path": Array [
+    expect(
+      prettyJson(transform(insertOp([0, 1, 0]), insertOp([0, 1]), rightSide)),
+    ).toMatchInlineSnapshot(`
+      "[
+        {
+          'type': 'insert_node',
+          'path': [
             0,
             2,
-            0,
+            0
           ],
-          "type": "insert_node",
-        },
-      ]
-    `);
-
-    expect(wrap(transform(insertOp([0, 1, 0]), insertOp([0, 1]), rightSide)))
-      .toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "newNode": Object {},
-          "path": Array [
-            0,
-            2,
-            0,
-          ],
-          "type": "insert_node",
-        },
-      ]
+          'newNode': {}
+        }
+      ]"
     `);
   });
 
   it('remove vs remove works', () => {
     expect(
-      wrap(transform(removeOp([0, 1, 0]), removeOp([0, 1]), rightSide)),
-    ).toMatchInlineSnapshot(`Array []`);
+      prettyJson(transform(removeOp([0, 1, 0]), removeOp([0, 1]), rightSide)),
+    ).toMatchInlineSnapshot(`"[]"`);
 
-    expect(wrap(transform(removeOp([0, 1]), removeOp([0, 1, 0]), rightSide)))
-      .toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "path": Array [
+    expect(
+      prettyJson(transform(removeOp([0, 1]), removeOp([0, 1, 0]), rightSide)),
+    ).toMatchInlineSnapshot(`
+      "[
+        {
+          'type': 'remove_node',
+          'path': [
             0,
-            1,
-          ],
-          "removedNode": undefined,
-          "type": "remove_node",
-        },
-      ]
+            1
+          ]
+        }
+      ]"
     `);
 
     expect(
-      wrap(transform(removeOp([0, 1, 1]), removeOp([0, 1, 1]), rightSide)),
-    ).toMatchInlineSnapshot(`Array []`);
+      prettyJson(
+        transform(removeOp([0, 1, 1]), removeOp([0, 1, 1]), rightSide),
+      ),
+    ).toMatchInlineSnapshot(`"[]"`);
 
     expect(
-      wrap(transform(removeOp([0, 1, 1]), removeOp([0, 1, 1]), leftSide)),
-    ).toMatchInlineSnapshot(`Array []`);
+      prettyJson(transform(removeOp([0, 1, 1]), removeOp([0, 1, 1]), leftSide)),
+    ).toMatchInlineSnapshot(`"[]"`);
 
-    expect(wrap(transform(removeOp([0, 1, 0]), removeOp([0, 0]), rightSide)))
-      .toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "path": Array [
+    expect(
+      prettyJson(transform(removeOp([0, 1, 0]), removeOp([0, 0]), rightSide)),
+    ).toMatchInlineSnapshot(`
+      "[
+        {
+          'type': 'remove_node',
+          'path': [
             0,
             0,
-            0,
-          ],
-          "removedNode": undefined,
-          "type": "remove_node",
-        },
-      ]
+            0
+          ]
+        }
+      ]"
     `);
 
-    expect(wrap(transform(removeOp([0, 0]), removeOp([0, 1, 0]), rightSide)))
-      .toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "path": Array [
+    expect(
+      prettyJson(transform(removeOp([0, 0]), removeOp([0, 1, 0]), rightSide)),
+    ).toMatchInlineSnapshot(`
+      "[
+        {
+          'type': 'remove_node',
+          'path': [
             0,
-            0,
-          ],
-          "removedNode": undefined,
-          "type": "remove_node",
-        },
-      ]
+            0
+          ]
+        }
+      ]"
     `);
 
-    expect(wrap(transform(removeOp([0, 2, 2]), removeOp([0, 1]), rightSide)))
-      .toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "path": Array [
+    expect(
+      prettyJson(transform(removeOp([0, 2, 2]), removeOp([0, 1]), rightSide)),
+    ).toMatchInlineSnapshot(`
+      "[
+        {
+          'type': 'remove_node',
+          'path': [
             0,
             1,
+            2
+          ]
+        }
+      ]"
+    `);
+
+    expect(
+      prettyJson(transform(removeOp([0, 1]), removeOp([0, 2, 2]), rightSide)),
+    ).toMatchInlineSnapshot(`
+      "[
+        {
+          'type': 'remove_node',
+          'path': [
+            0,
+            1
+          ]
+        }
+      ]"
+    `);
+
+    expect(
+      prettyJson(
+        transform(removeOp([0, 2, 2]), removeOp([0, 1, 1]), rightSide),
+      ),
+    ).toMatchInlineSnapshot(`
+      "[
+        {
+          'type': 'remove_node',
+          'path': [
+            0,
             2,
-          ],
-          "removedNode": undefined,
-          "type": "remove_node",
-        },
-      ]
+            2
+          ]
+        }
+      ]"
     `);
 
-    expect(wrap(transform(removeOp([0, 1]), removeOp([0, 2, 2]), rightSide)))
-      .toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "path": Array [
+    expect(
+      prettyJson(
+        transform(removeOp([0, 1, 1]), removeOp([0, 2, 2]), rightSide),
+      ),
+    ).toMatchInlineSnapshot(`
+      "[
+        {
+          'type': 'remove_node',
+          'path': [
             0,
             1,
-          ],
-          "removedNode": undefined,
-          "type": "remove_node",
-        },
-      ]
-    `);
-
-    expect(wrap(transform(removeOp([0, 2, 2]), removeOp([0, 1, 1]), rightSide)))
-      .toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "path": Array [
-            0,
-            2,
-            2,
-          ],
-          "removedNode": undefined,
-          "type": "remove_node",
-        },
-      ]
-    `);
-
-    expect(wrap(transform(removeOp([0, 1, 1]), removeOp([0, 2, 2]), rightSide)))
-      .toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "path": Array [
-            0,
-            1,
-            1,
-          ],
-          "removedNode": undefined,
-          "type": "remove_node",
-        },
-      ]
+            1
+          ]
+        }
+      ]"
     `);
   });
 
@@ -264,38 +274,38 @@ describe('transform', () => {
     let op1 = moveOp([0, 1], [0, 3, 3]);
     let op2 = moveOp([0, 2], [0, 3, 4]);
 
-    expect(transform(op1, op2, rightSide)).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "fromPath": Array [
+    expect(prettyJson(transform(op1, op2, rightSide))).toMatchInlineSnapshot(`
+      "[
+        {
+          'type': 'move_node',
+          'fromPath': [
             0,
-            1,
+            1
           ],
-          "toPath": Array [
+          'toPath': [
             0,
             2,
-            3,
-          ],
-          "type": "move_node",
-        },
-      ]
+            3
+          ]
+        }
+      ]"
     `);
 
-    expect(transform(op2, op1, rightSide)).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "fromPath": Array [
+    expect(prettyJson(transform(op2, op1, rightSide))).toMatchInlineSnapshot(`
+      "[
+        {
+          'type': 'move_node',
+          'fromPath': [
             0,
-            1,
+            1
           ],
-          "toPath": Array [
+          'toPath': [
             0,
             2,
-            5,
-          ],
-          "type": "move_node",
-        },
-      ]
+            5
+          ]
+        }
+      ]"
     `);
 
     op1 = moveOp([0, 1], [0, 3, 3]);
@@ -305,204 +315,206 @@ describe('transform', () => {
 
     op1 = moveOp([0, 1], [0, 3, 3]);
     op2 = moveOp([0, 1], [0, 2, 3]);
-    expect(transform(op2, op1, rightSide)).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "fromPath": Array [
+    expect(prettyJson(transform(op2, op1, rightSide))).toMatchInlineSnapshot(`
+      "[
+        {
+          'type': 'move_node',
+          'fromPath': [
             0,
             2,
-            3,
+            3
           ],
-          "toPath": Array [
+          'toPath': [
             0,
             1,
-            3,
-          ],
-          "type": "move_node",
-        },
-      ]
+            3
+          ]
+        }
+      ]"
     `);
-    expect(transform(op2, op1, leftSide)).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "fromPath": Array [
+    expect(prettyJson(transform(op2, op1, leftSide))).toMatchInlineSnapshot(`
+      "[
+        {
+          'type': 'move_node',
+          'fromPath': [
             0,
-            1,
+            1
           ],
-          "toPath": Array [
+          'toPath': [
             0,
             2,
-            3,
-          ],
-          "type": "move_node",
-        },
-      ]
+            3
+          ]
+        }
+      ]"
     `);
 
     op1 = moveOp([0, 1], [0, 3, 3]);
     op2 = moveOp([0, 2], [0, 3, 3]);
-    expect(transform(op2, op1, rightSide)).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "fromPath": Array [
+    expect(prettyJson(transform(op2, op1, rightSide))).toMatchInlineSnapshot(`
+      "[
+        {
+          'type': 'move_node',
+          'fromPath': [
             0,
-            1,
+            1
           ],
-          "toPath": Array [
+          'toPath': [
             0,
             2,
-            4,
-          ],
-          "type": "move_node",
-        },
-      ]
+            4
+          ]
+        }
+      ]"
     `);
-    expect(transform(op2, op1, leftSide)).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "fromPath": Array [
+    expect(prettyJson(transform(op2, op1, leftSide))).toMatchInlineSnapshot(`
+      "[
+        {
+          'type': 'move_node',
+          'fromPath': [
             0,
-            1,
+            1
           ],
-          "toPath": Array [
+          'toPath': [
             0,
             2,
-            3,
-          ],
-          "type": "move_node",
-        },
-      ]
+            3
+          ]
+        }
+      ]"
     `);
 
     op1 = moveOp([1], [2]);
     op2 = moveOp([1], [3]);
-    expect(transform(op2, op1, rightSide)).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "fromPath": Array [
-            2,
+    expect(prettyJson(transform(op2, op1, rightSide))).toMatchInlineSnapshot(`
+      "[
+        {
+          'type': 'move_node',
+          'fromPath': [
+            2
           ],
-          "toPath": Array [
-            3,
-          ],
-          "type": "move_node",
-        },
-      ]
+          'toPath': [
+            3
+          ]
+        }
+      ]"
     `);
-    expect(transform(op2, op1, leftSide)).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "fromPath": Array [
-            1,
+    expect(prettyJson(transform(op2, op1, leftSide))).toMatchInlineSnapshot(`
+      "[
+        {
+          'type': 'move_node',
+          'fromPath': [
+            1
           ],
-          "toPath": Array [
-            3,
-          ],
-          "type": "move_node",
-        },
-      ]
+          'toPath': [
+            3
+          ]
+        }
+      ]"
     `);
 
     op1 = moveOp([0, 1], [0, 3]);
     op2 = moveOp([0, 2], [0, 3]);
-    expect(transform(op2, op1, rightSide)).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "fromPath": Array [
+    expect(prettyJson(transform(op2, op1, rightSide))).toMatchInlineSnapshot(`
+      "[
+        {
+          'type': 'move_node',
+          'fromPath': [
             0,
-            1,
+            1
           ],
-          "toPath": Array [
+          'toPath': [
             0,
-            3,
-          ],
-          "type": "move_node",
-        },
-      ]
+            3
+          ]
+        }
+      ]"
     `);
-    expect(transform(op1, op2, leftSide)).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "fromPath": Array [
+    expect(prettyJson(transform(op1, op2, leftSide))).toMatchInlineSnapshot(`
+      "[
+        {
+          'type': 'move_node',
+          'fromPath': [
             0,
-            1,
+            1
           ],
-          "toPath": Array [
+          'toPath': [
             0,
-            2,
-          ],
-          "type": "move_node",
-        },
-      ]
+            2
+          ]
+        }
+      ]"
     `);
 
     op1 = moveOp([0, 1], [0, 3, 1]);
     op2 = moveOp([0, 2], [0, 3, 1]);
-    expect(transform(op2, op1, rightSide)).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "fromPath": Array [
+    expect(prettyJson(transform(op2, op1, rightSide))).toMatchInlineSnapshot(`
+      "[
+        {
+          'type': 'move_node',
+          'fromPath': [
             0,
-            1,
+            1
           ],
-          "toPath": Array [
+          'toPath': [
             0,
             2,
-            2,
-          ],
-          "type": "move_node",
-        },
-      ]
+            2
+          ]
+        }
+      ]"
     `);
-    expect(transform(op1, op2, leftSide)).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "fromPath": Array [
+    expect(prettyJson(transform(op1, op2, leftSide))).toMatchInlineSnapshot(`
+      "[
+        {
+          'type': 'move_node',
+          'fromPath': [
             0,
-            1,
+            1
           ],
-          "toPath": Array [
+          'toPath': [
             0,
             2,
-            1,
-          ],
-          "type": "move_node",
-        },
-      ]
+            1
+          ]
+        }
+      ]"
     `);
 
     op1 = moveOp([0, 2, 2], [0, 3, 3]);
     op2 = moveOp([0, 3], [0, 2, 2, 1]);
-    expect(transform(op2, op1, rightSide)).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "fromPath": Array [
+    expect(prettyJson(transform(op2, op1, rightSide))).toMatchInlineSnapshot(`
+      "[
+        {
+          'type': 'move_node',
+          'fromPath': [
             0,
             3,
-            3,
+            3
           ],
-          "toPath": Array [
+          'toPath': [
             0,
             2,
-            2,
-          ],
-          "type": "move_node",
+            2
+          ]
         },
-        Object {
-          "fromPath": Array [
+        {
+          'type': 'move_node',
+          'fromPath': [
             0,
-            3,
+            3
           ],
-          "toPath": Array [
+          'toPath': [
             0,
             2,
             2,
-            1,
-          ],
-          "type": "move_node",
-        },
-      ]
+            1
+          ]
+        }
+      ]"
     `);
-    expect(transform(op1, op2, leftSide)).toMatchInlineSnapshot(`Array []`);
+    expect(prettyJson(transform(op1, op2, leftSide))).toMatchInlineSnapshot(
+      `"[]"`,
+    );
   });
 });

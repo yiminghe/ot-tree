@@ -1,77 +1,82 @@
 import { type, moveOp } from '../src/';
+import { prettyJson } from './utils';
 
 const { invert } = type;
 
 describe('invert', () => {
   it('move works', () => {
-    expect(invert(moveOp([0, 0], [0, 1, 0]))).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "fromPath": Array [
+    expect(prettyJson(invert(moveOp([0, 0], [0, 1, 0]))))
+      .toMatchInlineSnapshot(`
+      "[
+        {
+          'type': 'move_node',
+          'fromPath': [
             0,
             0,
-            0,
+            0
           ],
-          "toPath": Array [
+          'toPath': [
             0,
-            0,
-          ],
-          "type": "move_node",
-        },
-      ]
+            0
+          ]
+        }
+      ]"
     `);
 
-    expect(invert(moveOp([0, 0, 0], [0, 0]))).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "fromPath": Array [
+    expect(prettyJson(invert(moveOp([0, 0, 0], [0, 0]))))
+      .toMatchInlineSnapshot(`
+      "[
+        {
+          'type': 'move_node',
+          'fromPath': [
             0,
-            0,
+            0
           ],
-          "toPath": Array [
+          'toPath': [
             0,
             1,
-            0,
-          ],
-          "type": "move_node",
-        },
-      ]
+            0
+          ]
+        }
+      ]"
     `);
 
-    expect(invert(moveOp([0, 0, 0], [0, 1, 0]))).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "fromPath": Array [
+    expect(prettyJson(invert(moveOp([0, 0, 0], [0, 1, 0]))))
+      .toMatchInlineSnapshot(`
+      "[
+        {
+          'type': 'move_node',
+          'fromPath': [
             0,
             1,
-            0,
+            0
           ],
-          "toPath": Array [
+          'toPath': [
             0,
             0,
-            0,
-          ],
-          "type": "move_node",
-        },
-      ]
+            0
+          ]
+        }
+      ]"
     `);
 
-    expect(invert(moveOp([0, 1, 0], [0, 0, 0]))).toMatchInlineSnapshot(`
-      Array [
-        Object {
-          "fromPath": Array [
+    expect(prettyJson(invert(moveOp([0, 1, 0], [0, 0, 0]))))
+      .toMatchInlineSnapshot(`
+      "[
+        {
+          'type': 'move_node',
+          'fromPath': [
             0,
             0,
-            0,
+            0
           ],
-          "toPath": Array [
+          'toPath': [
             0,
             1,
-            0,
-          ],
-          "type": "move_node",
-        },
-      ]
+            0
+          ]
+        }
+      ]"
     `);
   });
 });
