@@ -2,7 +2,7 @@
 
 [![NPM version](https://badge.fury.io/js/ot-tree.png)](http://badge.fury.io/js/ot-tree)
 [![NPM downloads](http://img.shields.io/npm/dm/ot-tree.svg)](https://npmjs.org/package/ot-tree)
-[![Build Status](https://app.travis-ci.com/yiminghe/ot-tree.svg?branch=master)](https://app.travis-ci.com/github/yiminghe/ot-tree)
+[![Build Status](https://app.travis-ci.com/yiminghe/ot-tree.svg?branch=main)](https://app.travis-ci.com/github/yiminghe/ot-tree)
 
 The Tree OT type can be used to edit arbitrary Tree Structure.
 
