@@ -77,9 +77,13 @@ export const internalType = {
     side: 'left' | 'right',
   ): TreeOp {
     let path: Path | undefined;
-    // 表示 op 为 localOp
+    // 表示 other 为 未落库 op，优先级高
     const adjustWhenConflict = side === 'right';
     if (op.type === 'edit_node') {
+      if (other.type === 'edit_node' && isEqual(op.path, other.path)) {
+        return adjustWhenConflict ? [other] : [op];
+      }
+
       if (other.type === 'insert_node') {
         path = transformPathWhenInsert(op.path, other.path, true);
         return [

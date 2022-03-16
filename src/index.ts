@@ -6,7 +6,7 @@ export const utils = treeUtils;
 
 export const type = {
   name: 'tree',
-  url: 'https://github.com/yiminghe/ot-tree',
+  uri: 'https://github.com/yiminghe/ot-tree',
   create(tree: Tree) {
     return tree;
   },

@@ -1,12 +1,18 @@
 {
   "name": "ot-tree",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "OT type for tree",
   "author": "yiminghe@gmail.com",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/yiminghe/ot-tree/issues"
   },
+  "workspaces": [
+    "examples/*"
+  ],
+  "types": "pkg/dist-types/index.d.ts",
+  "main": "pkg/dist-node/index.js",
+  "module": "pkg/dist-web/index.js",
   "homepage": "https://github.com/yiminghe/ot-tree",
   "devDependencies": {
     "@babel/preset-env": "^7.8.7",
@@ -20,7 +26,6 @@
     "jest": "26.x",
     "lint-staged": "^7.2.0",
     "lodash": "4.x",
-    "np": "7.x",
     "pika-plugin-build-web-babel": "^0.10.0",
     "pika-plugin-ts-types": "0.1.x",
     "pre-commit": "^1.2.2",
@@ -69,16 +74,17 @@
   },
   "scripts": {
     "lint-staged": "lint-staged",
-    "prettier": "prettier --write \"{src,__tests__}/**/*.{js,tsx,ts}\"",
-    "pub": "np --no-publish --no-release-draft && npm run build && npm publish pkg",
+    "prettier": "prettier --write \"{src,__tests__,examples}/**/*.{js,tsx,ts}\"",
+    "pub": "npm run build && cd pkg && npm publish",
     "build": "pika-pack build",
     "test": "rm -rf pkg && jest",
     "test:watch": "rm -rf pkg && jest --watch",
     "coverage": "rm -rf pkg && jest --coverage && cat ./coverage/lcov.info | coveralls",
     "coverage:gha": "rm -rf pkg && jest --coverage"
   },
+  "packageManager": "yarn@3.1.1",
   "jest": {
-    "testRegex":"/__tests__/.*\\.(test|spec)\\.[jt]sx?$",
+    "testRegex": "/__tests__/.*\\.(test|spec)\\.[jt]sx?$",
     "collectCoverageFrom": [
       "src/*"
     ]

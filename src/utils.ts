@@ -284,10 +284,11 @@ export function transformPathWhenMove(
   const npIndex = newPath.length - 1;
   const pIndex = fromPath.length - 1;
   const { pAbove, pYounger, pEqual } = relation(fromPath, path);
-  const { pYounger: npYounger, pAbove: npAbove, pEqual: npEqual } = relation(
-    newPath,
-    path,
-  );
+  const {
+    pYounger: npYounger,
+    pAbove: npAbove,
+    pEqual: npEqual,
+  } = relation(newPath, path);
 
   if (pAbove) {
     const subPath = relative(path, fromPath)!;
