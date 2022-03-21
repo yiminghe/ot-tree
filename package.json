@@ -10,9 +10,7 @@
   "workspaces": [
     "examples/*"
   ],
-  "types": "pkg/dist-types/index.d.ts",
-  "main": "pkg/dist-node/index.js",
-  "module": "pkg/dist-web/index.js",
+  "main": "src/index.ts",
   "homepage": "https://github.com/yiminghe/ot-tree",
   "devDependencies": {
     "@babel/preset-env": "^7.8.7",
