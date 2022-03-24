@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "client": "react-scripts start",
-    "server": "ts-node server.ts"
+    "server": "ts-node server/server.ts"
   },
   "license": "MIT",
   "dependencies": {
