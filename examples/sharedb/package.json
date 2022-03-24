@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "client": "react-scripts start",
-    "server": "node server.js"
+    "server": "ts-node server.ts"
   },
   "license": "MIT",
   "dependencies": {
@@ -27,6 +27,7 @@
     "reconnecting-websocket": "^4.2.0",
     "redux": "4.x",
     "sharedb": "2.x",
+    "ts-node": "10.x",
     "typescript": "4.x",
     "ws": "^7.2.0"
   },

@@ -14,7 +14,6 @@ For documentation on the spec this type implements, see [ottypes/docs](https://g
 
 ```
 yarn
-yarn build
 cd examples/sharedb
 yarn server // start server
 yarn client // start client
