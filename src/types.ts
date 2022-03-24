@@ -34,6 +34,10 @@ export interface EditNodeOperation {
   prevData?: Record<string, any>;
 }
 
+export type TreePresence = {
+  path: Path;
+};
+
 export type TreeOpComponent =
   | EditNodeOperation
   | InsertNodeOperation

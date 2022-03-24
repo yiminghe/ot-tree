@@ -1,4 +1,4 @@
-import type { Tree, TreeOp, Path, TreeNode, Side } from './types';
+import type { Tree, TreeOp, Path, TreeNode, Side, TreePresence } from './types';
 import { internalType } from './internal';
 import * as treeUtils from './utils';
 
@@ -20,6 +20,14 @@ export const type = {
     return op.map((opComponent) =>
       internalType.makeInvertible(opComponent, tree),
     );
+  },
+  transformPresence(p: TreePresence, op: TreeOp) {
+    if (p.path?.length) {
+      for (const o of op) {
+        p = internalType.transformPresence(p, o);
+      }
+    }
+    return p;
   },
   invert(op: TreeOp) {
     return op.map((opComponent) => internalType.invert(opComponent));
@@ -75,7 +83,9 @@ export function editOp(path: Path, data: any): TreeOp {
 export { internalType } from './internal';
 
 export type {
+  TreePresence,
   Tree,
+  TreeOp,
   TreeOpComponent,
   Path,
   TreeNode,

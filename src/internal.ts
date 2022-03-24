@@ -1,4 +1,4 @@
-import { TreeOpComponent, Tree, Path, TreeOp } from './types';
+import { TreeOpComponent, Tree, Path, TreeOp, TreePresence } from './types';
 import {
   addNodeAtPath,
   removeNodeAtPath,
@@ -70,6 +70,22 @@ export const internalType = {
       };
     }
     return op;
+  },
+  transformPresence(p: TreePresence, other: TreeOpComponent) {
+    let { path } = p;
+    if (path.length) {
+      if (other.type === 'insert_node') {
+        path = transformPathWhenInsert(path, other.path, true);
+      } else if (other.type === 'remove_node') {
+        path = transformPathWhenRemove(path, other.path, true) || [];
+      } else if (other.type === 'move_node') {
+        path = transformPathWhenMove(path, other.fromPath, other.toPath);
+      }
+    }
+    return {
+      ...p,
+      path,
+    };
   },
   transform(
     op: TreeOpComponent,
