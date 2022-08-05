@@ -80,7 +80,7 @@
     "coverage": "rm -rf pkg && jest --coverage && cat ./coverage/lcov.info | coveralls",
     "coverage:gha": "rm -rf pkg && jest --coverage"
   },
-  "packageManager": "yarn@3.1.1",
+  "packageManager": "yarn@3.2.2",
   "jest": {
     "testRegex": "/__tests__/.*\\.(test|spec)\\.[jt]sx?$",
     "collectCoverageFrom": [
